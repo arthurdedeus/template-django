@@ -1,3 +1,4 @@
+[![Django CI](https://github.com/arthurdedeus/template-django/actions/workflows/django.yaml/badge.svg?branch=main)](https://github.com/arthurdedeus/template-django/actions/workflows/django.yaml)
 ## .env File
 ```
 SECRET_KEY=**//secret-key//**

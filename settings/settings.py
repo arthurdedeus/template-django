@@ -15,7 +15,12 @@ from pathlib import Path
 import environ
 
 env = environ.Env()
-environ.Env.read_env(env_file=".env")
+try:
+    environ.Env.read_env(env_file=".env")
+except FileNotFoundError:
+    print("Did not find .env file")
+    pass
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = env("SECRET_KEY", default="unsafe-default-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,11 +87,11 @@ WSGI_APPLICATION = "settings.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DB_NAME"),
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": env("DB_HOST"),
-        "PORT": env("DB_PORT"),
+        "NAME": env("DB_NAME", default="template-api-db"),
+        "USER": env("DB_USER", default="template-api"),
+        "PASSWORD": env("DB_PASSWORD", default="badaras"),
+        "HOST": env("DB_HOST", default="localhost"),
+        "PORT": env("DB_PORT", default=5432),
     }
 }
 
